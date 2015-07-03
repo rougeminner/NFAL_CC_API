@@ -1,0 +1,35 @@
+-- NFAL was created by Rougeminner with help from
+--Alissa from the Computercraft IRC channel 
+--with out her help this would not have happened
+
+loadAnim = function(path)
+anim = fs.open(tostring(path),'r')
+contents = anim.readAll()
+anim.close()
+end
+
+SetFrameRate = function(number)
+speed = number
+end
+
+--animload("startscreen.nfa")
+-- I know this makes the code messy but it keeps you
+--from having to clean up after my codes mess :)
+function clear()
+term.clear()
+term.setCursorPos(1,4)
+term.setBackgroundColor(colors.black)
+end
+
+drawAnimFrame = function()
+for frame in contents:gmatch("[^~]+") do 
+clear()
+file = fs.open("Frames/frame",'w')
+file.write(frame)
+file.close()
+pic = paintutils.loadImage("Frames/frame")
+paintutils.drawImage(pic,1,1)
+sleep(speed)
+end
+end
+
