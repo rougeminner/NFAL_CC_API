@@ -21,7 +21,7 @@ term.setBackgroundColor(2 ^ tonumber(string.char(byte), 16))
 		elseif nex == "text" then
 print(byte)			
 term.setTextColor(2 ^ tonumber(string.char(byte), 16))
-			nex = "text"
+			nex = "draw"
 		elseif nex == "draw" then
 			term.write(string.char(byte))
 		end
