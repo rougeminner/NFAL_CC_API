@@ -1,0 +1,31 @@
+local x, y = term.getCursorPos()
+
+local handle = io.open("discready.nft", "rb")
+if handle then
+	local byte = handle:read()
+	local nex = "draw"
+	repeat
+print(byte)		
+if byte == 10 then
+			y = y + 1
+			term.setCursorPos(x, y)
+  nex = 'draw'	
+	elseif byte == 30 then
+			nex = "bkgnd"
+		elseif byte == 31 then
+			nex = "text"
+		elseif next == "bkgnd" then
+print(byte)			
+term.setBackgroundColor(2 ^ tonumber(string.char(byte), 16))
+			nex = "draw"
+		elseif nex == "text" then
+print(byte)			
+term.setTextColor(2 ^ tonumber(string.char(byte), 16))
+			nex = "text"
+		elseif nex == "draw" then
+			term.write(string.char(byte))
+		end
+		byte = handle:read()
+	until not byte
+	handle:close()
+end
