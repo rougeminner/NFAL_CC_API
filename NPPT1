@@ -1,0 +1,41 @@
+nft = {
+drawNFT = function(fPath)
+local x, y = term.getCursorPos()
+
+local handle = io.open(fpath, "rb")
+if handle then
+	local byte = handle:read()
+	local nex = "draw"
+	repeat
+	--print(byte)		
+	if byte == 10 then
+			y = y + 1
+			term.setCursorPos(x, y)
+			nex = "draw"
+	elseif byte == 30 then
+			nex = "bkgnd"
+		elseif byte == 31 then
+			nex = "text"
+		elseif nex == "bkgnd" then
+			if tonumber(string.char(byte), 16) then
+				term.setBackgroundColor(2 ^ tonumber(string.char(byte), 16))
+			else
+				term.write(string.char(byte))
+			end
+			nex = "draw"
+		elseif nex == "text" then
+			if tonumber(string.char(byte), 16) then
+				 term.setTextColor(2 ^ tonumber(string.char(byte), 16))
+			else
+				term.write(string.char(byte))
+			end
+			nex = "draw"
+		elseif nex == "draw" then
+		 term.write(string.char(byte))
+		end
+		byte = handle:read()
+	until not byte
+	handle:close()
+end
+end
+}
